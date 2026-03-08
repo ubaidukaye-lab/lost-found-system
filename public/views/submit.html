@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Report Item</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<h1>Report Item</h1>
+
+<!-- Back button -->
+<div class="nav">
+  <button onclick="location.href='index.html'">← Back</button>
+</div>
+
+<div class="card">
+
+<form id="itemForm">
+
+<input type="text" id="title" placeholder="Item Title" required>
+
+<input type="text" id="description" placeholder="Description">
+
+<select id="category">
+<option value="Lost">Lost</option>
+<option value="Found">Found</option>
+</select>
+
+<input type="text" id="location" placeholder="Location">
+
+<input type="text" id="contact" placeholder="Contact">
+
+<button type="submit">Submit Item</button>
+
+</form>
+
+</div>
+
+<script src="/js/validation.js" defer></script>
+
+</body>
+</html>

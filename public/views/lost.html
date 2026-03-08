@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Items</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<h1>Items</h1>
+
+<div class="nav">
+<button onclick="location.href='index.html'">Home</button>
+<button onclick="location.href='submit.html'">Report</button>
+</div>
+
+<div class="card">
+
+<table>
+
+<thead>
+<tr>
+<th>Title</th>
+<th>Location</th>
+<th>Status</th>
+<th>Actions</th>
+</tr>
+</thead>
+
+<tbody id="list"></tbody>
+
+</table>
+
+</div>
+
+<script>
+
+function loadItems(){
+
+fetch("/items/lost")   
+.then(res=>res.json())
+.then(data=>{
+
+let list=document.getElementById("list");
+list.innerHTML="";
+
+data.forEach(item=>{
+
+let row=document.createElement("tr");
+
+row.innerHTML=`
+<td>${item.title}</td>
+<td>${item.location}</td>
+<td>${item.status}</td>
+<td>
+<button onclick="deleteItem(${item.id})">Delete</button>
+<button onclick="markReturned(${item.id})">Returned</button>
+</td>
+`;
+
+list.appendChild(row);
+
+});
+
+});
+
+}
+
+function deleteItem(id){
+
+fetch("/items/"+id,{method:"DELETE"})
+.then(()=>loadItems());
+
+}
+
+function markReturned(id){
+
+fetch("/items/"+id,{
+method:"PUT",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({status:"Returned"})
+}).then(()=>loadItems());
+
+}
+
+loadItems();
+
+</script>
+
+</body>
+</html>
